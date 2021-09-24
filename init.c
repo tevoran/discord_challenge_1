@@ -33,8 +33,8 @@ void dc_init()
 	//SDL_GLContext is an alias for *void
 	//therefore glcontext is a pointer
 	//this looks like a bad design decision by the SDL folks
-	SDL_GLContext glcontext=SDL_GL_CreateContext(window);
-		if(glcontext==NULL)
+	gl_context=SDL_GL_CreateContext(window);
+		if(gl_context==NULL)
 		{
 			printf("ERROR: OpenGL context couldn't be created\n");
 		}
@@ -44,7 +44,13 @@ void dc_init()
 		printf("ERROR: GLEW couldn't be initialized\n");
 	}
 
-	glClearColor(0.5,0.6,0.1,1.0); //RGBA
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	SDL_GL_SwapWindow(window);
+	//activating Z-Buffering
+	//standard clear depth is used
+	//standard depth range is used
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
+
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//rendering full triangles
 }

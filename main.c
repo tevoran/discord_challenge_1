@@ -5,7 +5,8 @@ int main()
 {
 
 	dc_init();
-
+	dc_using_shaders();
+	dc_update();
 	SDL_Delay(2000);
 
 
