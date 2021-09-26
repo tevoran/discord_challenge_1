@@ -22,5 +22,8 @@ extern GLuint shader;
 void dc_init();
 void dc_update();
 void dc_using_shaders();
+void dc_generate_mesh();
+void dc_render_mesh();
+
 
 #endif

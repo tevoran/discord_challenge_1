@@ -18,10 +18,9 @@ void dc_using_shaders()
 
 	fseek(shader_file, 0, SEEK_END);
 	shader_size=ftell(shader_file);
-	shader_size++;
 	fseek(shader_file, 0, SEEK_SET);
 
-	shader_buffer=malloc(shader_size);
+	shader_buffer=malloc(shader_size+1);
 	fread(shader_buffer, shader_size, 1, shader_file);
 	shader_buffer[shader_size]='\0';
 
@@ -69,10 +68,9 @@ void dc_using_shaders()
 
 	fseek(shader_file, 0, SEEK_END);
 	shader_size=ftell(shader_file);
-	shader_size++;
 	fseek(shader_file, 0, SEEK_SET);
 
-	shader_buffer=malloc(shader_size);
+	shader_buffer=malloc(shader_size+1);
 	fread(shader_buffer, shader_size, 1, shader_file);
 	shader_buffer[shader_size]='\0';
 

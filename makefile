@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-o dc
+CFLAGS=-o dc -g
 LIBS=-lSDL2 -lGL -lGLEW
 SRC=*.c
 

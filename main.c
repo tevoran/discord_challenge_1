@@ -6,8 +6,13 @@ int main()
 
 	dc_init();
 	dc_using_shaders();
-	dc_update();
-	SDL_Delay(2000);
+	dc_generate_mesh();
+	for(int i=0; i<10; i++)
+	{
+		dc_render_mesh();
+		dc_update();
+	}
+	SDL_Delay(5000);
 
 
 
