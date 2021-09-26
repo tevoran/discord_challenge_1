@@ -4,6 +4,14 @@
 #define NUM_VERTICES 4
 #define NUM_INDICES 6
 
+GLfloat rot_mat[4][4]=
+{
+	1.0,	0.0,	0.0,	0.0,
+	0.0,	1.0,	0.0,	0.0,
+	0.0,	0.0,	1.0,	0.0,
+	0.0,	0.0,	0.0,	1.0,
+};
+
 GLfloat vertices[]=
 {
 	//front
@@ -17,8 +25,6 @@ GLfloat vertices[]=
 	0.5,	-0.5,	0.5,	0.0,	1.0,
 	-0.5,	0.5,	0.5,	1.0,	0.0,
 	0.5,	0.5,	0.5,	1.0,	1.0,
-
-	//left
 };
 
 GLuint indices[]=
@@ -100,6 +106,9 @@ void dc_generate_mesh()
 
 void dc_render_mesh()
 {
+	GLint mat_id;
+	mat_id=glGetUniformLocation(shader, "rot_mat"); //shader is a global
+	glUniformMatrix4fv(mat_id, 1, GL_FALSE, (const GLfloat*)rot_mat);
 	glBindTexture(GL_TEXTURE_2D, to);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
@@ -108,4 +117,23 @@ void dc_render_mesh()
 		NUM_INDICES, 
 		GL_UNSIGNED_INT,
 		NULL);
+}
+
+void dc_rotate_mesh(float radians)
+{
+	GLfloat tmp_rot_mat[4][4]=
+	{
+		cos(radians),	0.0,			sin(radians),	0.0,
+		0.0,			1.0,			0.0,			0.0,
+		-sin(radians),	0.0,			cos(radians),	0.0,
+		0.0,			0.0,			0.0,			1.0,
+	};
+
+	for(int x=0; x<4; x++)
+	{
+		for(int y=0; y<4; y++)
+		{
+			rot_mat[x][y]=tmp_rot_mat[x][y];
+		}
+	}
 }

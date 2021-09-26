@@ -3,10 +3,12 @@
 layout(location = 0) in vec3 pos;
 layout(location = 1) in vec2 tex_coords;
 
+uniform mat4 rot_mat;
+
 out vec2 tex_coords_frag;
 
 void main()
 {
 	tex_coords_frag = tex_coords;
-	gl_Position = vec4(pos, 1.0);
+	gl_Position = rot_mat * vec4(pos, 1.0);
 }

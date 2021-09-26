@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 extern SDL_Window *window;
 
@@ -24,6 +25,10 @@ void dc_update();
 void dc_using_shaders();
 void dc_generate_mesh();
 void dc_render_mesh();
+void dc_rotate_mesh(float radians);
+void dc_mat4_mul(GLfloat const a[4][4], GLfloat const b[4][4], GLfloat result[4][4]);
+
+
 
 
 #endif
