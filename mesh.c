@@ -1,17 +1,35 @@
 #include "dc.h"
 
 #define ELEMENTS_PER_VERTEX 5
-#define NUM_VERTICES 6
+#define NUM_VERTICES 4
+#define NUM_INDICES 6
 
 GLfloat vertices[]=
 {
-	-1.0,	-1.0,	0.1,	0.0,	0.0,
-	1.0,	-1.0,	0.1,	0.0,	1.0,
-	-1.0,	1.0,	0.1,	1.0,	0.0,
+	//front
+	-0.5,	-0.5,	0.0,	0.0,	0.0,
+	0.5,	-0.5,	0.0,	0.0,	1.0,
+	-0.5,	0.5,	0.0,	1.0,	0.0,
+	0.5,	0.5,	0.0,	1.0,	1.0,
 
-	1.0,	1.0,	0.1,	1.0,	1.0,
-	-1.0,	1.0,	0.1,	1.0,	0.0,
-	1.0,	-1.0,	0.1,	0.0,	1.0,
+	//back
+	-0.5,	-0.5,	0.5,	0.0,	0.0,
+	0.5,	-0.5,	0.5,	0.0,	1.0,
+	-0.5,	0.5,	0.5,	1.0,	0.0,
+	0.5,	0.5,	0.5,	1.0,	1.0,
+
+	//left
+};
+
+GLuint indices[]=
+{
+	//front
+	0,1,2,
+	1,2,3,
+
+	//back
+	4,5,6,
+	5,6,7,
 };
 
 //7x7 pixel crate texture
@@ -40,7 +58,7 @@ void dc_generate_mesh()
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenTextures(1, &to);
-	//glGenBuffers(1, &ibo);
+	glGenBuffers(1, &ibo);
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -52,6 +70,14 @@ void dc_generate_mesh()
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 7, 7, 0, GL_RGB, GL_FLOAT, texture);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(
+		GL_ELEMENT_ARRAY_BUFFER, 
+		sizeof(indices), 
+		indices, 
+		GL_STATIC_DRAW);
+
 
 	glVertexAttribPointer(
 		0, 
@@ -76,5 +102,10 @@ void dc_render_mesh()
 {
 	glBindTexture(GL_TEXTURE_2D, to);
 	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glDrawElements(
+		GL_TRIANGLES, 
+		NUM_INDICES, 
+		GL_UNSIGNED_INT,
+		NULL);
 }
