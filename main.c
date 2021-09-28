@@ -7,7 +7,7 @@ int main()
 	dc_init();
 	dc_using_shaders();
 	dc_generate_mesh();
-	for(int i=0; i<250; i++)
+	for(int i=0; i<1000; i++)
 	{
 		dc_render_mesh();
 		dc_update();

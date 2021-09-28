@@ -11,8 +11,8 @@ void dc_init()
 		"T3V's cool challenge entry",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		600,
-		600,
+		1366,
+		768,
 		SDL_WINDOW_OPENGL);
 		//if windows wasn't successfully created then give out and error
 		if(window==NULL)
@@ -50,7 +50,8 @@ void dc_init()
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 	glDepthFunc(GL_LESS);
+	glClearDepth(1.0f);
+	glDepthRange(0.0f,1.0f);
 
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//rendering full triangles
+	glPolygonMode(GL_FRONT, GL_FILL);//rendering full triangles
 }
